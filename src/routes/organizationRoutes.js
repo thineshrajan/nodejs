@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     const organizations = await Organization.find({ status: { $ne: 0 } }).populate({
       path: 'users',
       select: 'username email status',
-      match: { status: { $ne: 0 } } 
+      match: { status: { $ne: 0 } ,role : {$ne : "admin"}} 
     });
     
     res.status(200).json(organizations);
