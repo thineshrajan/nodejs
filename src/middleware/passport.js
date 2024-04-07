@@ -10,7 +10,7 @@ passport.use(new LocalStrategy(async (email, password, done) => {
       return done(null, false, { message: 'Incorrect username.' });
     }
   
-    if (!password == user.password) {
+    if (password !== user._doc.password) {
       return done(null, false, { message: 'Incorrect password.' });
     }
 

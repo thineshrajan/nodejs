@@ -20,7 +20,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 // Signup endpoint
 router.post('/signup', async (req, res) => {
   try {
-    const { username, password, role, email, organization } = req.body;
+    const { username, password, role, email, organization ,lastname} = req.body;
     // Check if user with the same email already exists
     const existingUser = await User.findOne({ email });
 
@@ -28,7 +28,7 @@ router.post('/signup', async (req, res) => {
       return res.status(400).json({ message: 'This email is already registered' });
     }
 
-    const user = new User({ username, password, role, email, organization });
+    const user = new User({ username, password, role, email, organization ,lastname});
     await Organization.findOneAndUpdate({ _id: new ObjectId(organization) },
       { $push: { users: new ObjectId(user._id) } }, { new: true });
 
